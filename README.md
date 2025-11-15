@@ -1,54 +1,44 @@
 🏢 Employee Management Interface — README
 📌 Contexte du projet
 
-Ce projet consiste à créer une interface graphique permettant de gérer les employés d'une entreprise directement sur un plan d’étage. L’objectif est de proposer une application ergonomique, dynamique et adaptée aux besoins réels d’organisation des ressources humaines.
-
-L’utilisateur peut ajouter, déplacer et supprimer des employés tout en respectant les règles métier associées aux rôles.
+Ce projet propose une interface graphique permettant de gérer les employés d'une entreprise directement sur un plan d’étage. L’application offre une gestion visuelle, intuitive et dynamique, tout en appliquant des règles métier liées aux rôles et aux zones.
 
 🎯 Objectifs généraux
 
 Ajouter, déplacer et supprimer des employés depuis une interface graphique.
 
-Respecter les règles métier : restrictions selon le rôle et la zone.
+Respecter les restrictions métiers selon le rôle et la zone.
 
-Proposer une interface fluide, moderne, intuitive et responsive.
+Offrir une interface moderne, fluide, responsive et ergonomique.
 
-Centraliser la gestion des données du personnel et leur positionnement spatial.
+Centraliser la gestion et la visualisation des employés.
 
 📚 User Stories
 👨‍🎨 Concepteur (UI/UX Designer)
 
-Je conçois une interface intuitive et fluide.
+Interface intuitive et fluide.
 
-Je définis une palette de couleurs cohérente et des icônes compréhensibles.
+Palette de couleurs cohérente et icônes compréhensibles.
 
-Je réalise les versions Desktop et Mobile du design, modernes et travaillées (Flexbox, Grid, style arrondi, boutons colorés : vert, orange, rouge).
+Versions Desktop & Mobile modernes utilisant Flexbox, Grid, formes arrondies, boutons colorés.
 
 👨‍💻 Développeur Front-End
 
-Je crée la structure HTML avec une sidebar affichant:
+Création de la structure HTML avec :
 
-la liste des employés non assignés ("Unassigned Staff")
+une section « Unassigned Staff »
 
-un bouton "Add New Worker".
+un bouton Add New Worker
 
-Je développe une modale d’ajout d’employé avec les champs :
+Création d’une modale d’ajout avec champs :
 
-Nom
+Nom, Rôle, Photo (URL), Email, Téléphone
 
-Rôle
+Expériences professionnelles (formulaire dynamique)
 
-Photo (URL)
+Prévisualisation de la photo dans la modale.
 
-Email
-
-Téléphone
-
-Expériences professionnelles (ajout dynamique)
-
-Je mets en place une prévisualisation de la photo.
-
-J’affiche dans la zone principale le plan d’étage contenant 6 zones :
+Affichage du plan comprenant 6 zones :
 
 Salle de conférence
 
@@ -62,72 +52,72 @@ Salle du personnel
 
 Salle d’archives
 
-Je respecte les restrictions :
+Mise en place des règles d’accès :
 
-Réception → Réceptionnistes seulement
+Réception → Réceptionnistes uniquement
 
-Salle des serveurs → Techniciens IT seulement
+Salle des serveurs → Techniciens IT uniquement
 
-Salle de sécurité → Agents de sécurité seulement
+Salle de sécurité → Agents de sécurité uniquement
 
 Managers → accès partout
 
 Nettoyage → partout sauf Salle d’archives
 
-Autres rôles → accès libre sauf zones restreintes
+Autres rôles → accès libre hors zones restreintes
 
-J'ajoute un bouton ❌ sur chaque employé pour le retirer d'une zone.
+Ajout d’un bouton ❌ pour retirer un employé d'une zone.
 
-Je permets d’ouvrir un profil détaillé : photo, nom, rôle, contacts, expériences, localisation.
+Ouverture d’un profil détaillé (photo, rôle, email, téléphone, expériences, localisation).
 
-J’ajoute un bouton + dans chaque zone pour sélectionner un employé admissible.
+Bouton + dans chaque zone pour ajouter un employé admissible.
 
-J'affiche en rouge pâle les zones obligatoires mais vides (sauf conférence + personnel).
+Affichage en rouge pâle des zones obligatoires mais vides (sauf conférence + personnel).
 
-J’ajoute des limites sur le nombre d’employés par zone.
+Limitation du nombre d’employés par zone.
 
-Je rends l’interface responsive avec animations CSS.
+Responsive complet + animations CSS fluides.
 
-Je valide HTML/CSS avec W3C.
+Validation HTML & CSS via W3C Validator.
 
-Je publie le projet (GitHub Pages / Vercel).
+Publication (GitHub Pages ou Vercel).
 
 🧭 Scrum Master
 
-J'organise les User Stories via Trello, Jira ou GitHub Projects.
+Organisation des User Stories sur Trello / Jira / GitHub Projects.
 
-Je gère les branches Git (optionnel).
+Gestion des branches Git (optionnel).
 
-Je présente la démo finale.
+Présentation finale du projet.
 
 📱 Tailles d’écrans à gérer
 Portrait
 
-> 1280px : Grand écran
+>1280px : grand écran
 
-1024px – 1279px : Petit écran
+1024–1279px : petit écran
 
-768px – 1023px : Tablette
+768–1023px : tablette
 
-< 767px : Mobile
+<767px : mobile
 
 Paysage
 
-768px – 1023px : Mobile paysage
+768–1023px : mobile paysage
 
-1024px – 1279px : Tablette paysage
+1024–1279px : tablette paysage
 
-⭐ Bonus (optionnels mais valorisés)
+⭐ Bonus (optionnels)
 
-Drag & Drop pour déplacer les employés.
+Drag & Drop entre zones.
 
-Bouton "Edit" pour modifier un employé non assigné.
+Bouton Edit pour modifier un employé non assigné.
 
-Recherche + filtrage (nom / rôle).
+Recherche + filtrage par nom ou rôle.
 
 Sauvegarde automatique dans le localStorage.
 
-Mode "Réorganisation automatique" (distribution aléatoire avec règles).
+Mode “Réorganisation automatique”.
 
 Photo par défaut si aucune image n’est fournie.
 
@@ -135,8 +125,8 @@ Photo par défaut si aucune image n’est fournie.
 
 HTML5, CSS3, JavaScript
 
-CSS : Flexbox, Grid, animations
+Flexbox, Grid, Animations CSS
 
-Stockage : LocalStorage
+LocalStorage
 
 Hébergement : GitHub Pages / Vercel
