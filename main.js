@@ -2,6 +2,7 @@ const workers = document.getElementById("worker")
 const moreExperiences = document.getElementById("expmore")
 const cards = document.getElementById("card")
 const test = document.getElementById("test")
+const header = document.getElementById("header")
 
 ///buttons
 const btn = document.getElementById("addworker")
@@ -121,21 +122,23 @@ savebtn.addEventListener('click', (e) =>{
     img.src = imgUrl.value
     img.classList.remove('hidden')
     dataindex++;
-    innerHTML += `
+    header.innerHTML += `
     <div class="border-2 border-black rounded-2xl mt-4">
-                <div class="flex justify-around">
-                    <img  id="img" src="" class="mt-3 flex justify-center w-7 h-7 object-cover rounded-4xl"/>
+                <div class="flex justify-around ">
+                    <img  id="img${dataindex}" src="${imgUrl.value}" class="mt-3 flex justify-center w-7 h-7 object-cover rounded-4xl"/>
                     <div class="m-4">
-                        <h4 class="text-xs">name</h4>
-                        <p class="text-xs mt-2">lol</p>
+                        <h4 class="text-xs font-medium ">${full_name.value}</h4>
+                        <p class="text-xs mt-2 font-medium">${role.value}</p>
                     </div>
                 </div>
                 <div class="flex justify-around">
-                    <button class=" px-2 py-1 bg-red-500 text-white rounded-lg text-xs mb-2">remove</button>
-                    <button class="px-2 py-1 border bg-white text-yellow-500 rounded-lg text-xs border-amber-500 mb-2">Edit</button>
+                    <button id = "removebtn${dataindex}" class=" px-2 py-1 bg-red-500 text-white rounded-lg text-xs mb-2">remove</button>
+                    <button id = "editbtn${dataindex}" class="px-2 py-1 border bg-white text-yellow-500 rounded-lg text-xs border-amber-500 mb-2">Edit</button>
                 </div>
             </div>
         `
+    workers.classList.add('hidden')
+    
 })
 
 saveExpBtn.addEventListener('click', (e) =>{
