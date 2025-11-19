@@ -3,6 +3,16 @@ const moreExperiences = document.getElementById("expmore")
 const cards = document.getElementById("card")
 const test = document.getElementById("test")
 const header = document.getElementById("header")
+const dataworker = document.getElementById("dataworker")
+const place1 = document.getElementById("place1")
+const place2 = document.getElementById("place2")
+const place3 = document.getElementById("place3")
+const place4 = document.getElementById("place4")
+const place5 = document.getElementById("place5")
+const place6 = document.getElementById("place6")
+const see = document.getElementById("see")
+const see1 = document.getElementById("see1")
+
 
 ///buttons
 const btn = document.getElementById("addworker")
@@ -12,6 +22,13 @@ const cancelbtn = document.getElementById("cancelbtn")
 const moreExp = document.getElementById("expbtn")
 const saveExpBtn = document.getElementById("saveexpbtn")
 const cancelExpBtn = document.getElementById("cancelexpbtn")
+const itembtn1 = document.getElementById("itembtn1")
+const itembtn2 = document.getElementById("itembtn2")
+const itembtn3 = document.getElementById("itembtn3")
+const itembtn4 = document.getElementById("itembtn4")
+const itembtn5 = document.getElementById("itembtn5")
+const itembtn6 = document.getElementById("itembtn6")
+
 
 ///input
 const full_name = document.getElementById("full_name")
@@ -121,8 +138,9 @@ savebtn.addEventListener('click', (e) =>{
     data.Phone[dataindex] = phone.value
     img.src = imgUrl.value
     img.classList.remove('hidden')
+    workers.classList.add('hidden')
     dataindex++;
-    header.innerHTML += `
+    dataworker.innerHTML += `
     <div class="border-2 border-black rounded-2xl mt-4">
                 <div class="flex justify-around ">
                     <img  id="img${dataindex}" src="${imgUrl.value}" class="mt-3 flex justify-center w-7 h-7 object-cover rounded-4xl"/>
@@ -137,8 +155,37 @@ savebtn.addEventListener('click', (e) =>{
                 </div>
             </div>
         `
+    full_name.value = ""
+    role.value = ""
+    imgUrl.value = ""
+    email.value = ""
+    phone.value = ""
+    Company.value = "";
+    oldRole.value = "";
+    imgUrl.value = "";
+    moreExperiences.classList.add('hidden')
+    saveExpBtn.classList.add('hidden')
+    cancelExpBtn.classList.add('hidden')
+    test.remove()
+    firstclick = 0;
+})
+
+cancelbtn.addEventListener('click', (e) => {
+    e.preventDefault()
     workers.classList.add('hidden')
-    
+    full_name.value = ""
+    role.value = ""
+    imgUrl.value = ""
+    email.value = ""
+    phone.value = ""
+    Company.value = "";
+    oldRole.value = "";
+    imgUrl.value = "";
+    moreExperiences.classList.add('hidden')
+    saveExpBtn.classList.add('hidden')
+    cancelExpBtn.classList.add('hidden')
+    test.remove()
+    firstclick = 0;
 })
 
 saveExpBtn.addEventListener('click', (e) =>{
@@ -167,4 +214,37 @@ saveExpBtn.addEventListener('click', (e) =>{
         }
         expindex++;
     }
+})
+
+itembtn1.addEventListener('click',(e) =>{
+    e.preventDefault()
+    const clone = dataworker.cloneNode(true)
+    see1.appendChild(clone);
+    see.classList.remove('hidden')
+    see1.addEventListener('click', (e) => {
+    const clicked = e.target.closest('div');
+    if(clicked){
+        console.log("work")
+        e.preventDefault();
+        see.classList.remove('hidden')
+        if(clicked.parentElement.parentElement.id != "ever"){
+            place1.innerHTML += `<div class="border-2 border-black rounded-2xl mt-4">
+                <div class="flex justify-around ">
+                    <img  id="see${dataindex}" src="${imgUrl.value}" class="mt-3 flex justify-center w-7 h-7 object-cover rounded-4xl"/>
+                    <div class="m-4">
+                        <h4 class="text-xs font-medium ">${full_name.value}</h4>
+                        <p class="text-xs mt-2 font-medium">${role.value}</p>
+                    </div>
+                </div>
+            </div>
+        `
+            see.classList.add('hidden')
+            const id = clicked.parentElement.id;
+            const remove =  document.getElementById(id)
+            remove.remove()
+        }
+        // clicked.parentElement.parentElement.remove()
+        
+    }
+})
 })

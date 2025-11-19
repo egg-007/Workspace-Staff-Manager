@@ -16,7 +16,6 @@
          <h3 class=" mt-2 text-2xl text-blue-600">Staff Member</h3>
          <!-- workers -->
           <div>
-            <!-- TODO with js -->
           </div>
          <!-- Modal -->
          <div id="worker" class="hidden fixed inset-0 z-50 overflow-y-auto flex justify-center items-center bg-black/40">
@@ -29,7 +28,7 @@
                     <div class="mt-4 space-y-4">
                         <div>
                             <label for="full_name" class="block font-medium">Full name</label>
-                            <input  type="text"  id="full_name"  class="border w-full p-2 rounded mt-1"  placeholder="John"  required/>
+                            <input  type="text"  id="full_name"  class="border w-full p-2 rounded mt-1"  placeholder="John"  pattern="[A-Za-z\s]" required/>
                         </div>
                         
                         <div>
@@ -86,12 +85,12 @@
                         </div>
                         <div>
                             <label for="email" class="block font-medium">Email</label>
-                            <input type="email" id="email" class="border w-full p-2 rounded" placeholder="john.doe@example.com" required/>
+                            <input type="email" id="email" class="border w-full p-2 rounded" placeholder="john.doe@example.com" pattern="[A-Za-z0-9.%+-]+@[a-z0-9.-]+\.[a-z]{2,}" required/>
                         </div>
                         
                         <div>
                             <label for="phone" class="block font-medium">Phone</label>
-                            <input type="text" id="phone" class="border w-full p-2 rounded" placeholder="+212 600000000" required />
+                            <input type="text" id="phone" class="border w-full p-2 rounded" placeholder="0600000000"  pattern="[0-9]" required />
                         </div>
                         
                         <div class="flex justify-end gap-3 pt-4 border-t">
@@ -105,8 +104,10 @@
                     </div>
                 </div>
             </div>
-            
-            <div class="h-11/12 flex justify-center items-end">
+            <div id="dataworker" class="h-9/12 overflow-y-auto ">
+
+            </div>
+            <div class=" flex justify-center items-end">
 
                 <button id="addworker" class="px-4 py-2 bg-blue-600 text-white rounded ">
                   Add Worker
@@ -115,29 +116,36 @@
      </header>
     <!-- img part -->
     <section>
-      <div class="item my-8 mx-4">
+      <div id="ever" class="item my-8 mx-4">
+         <div id="see" class="hidden fixed inset-0 z-50 overflow-y-auto flex justify-center items-center bg-black/40">
+             <div id="see1" class="bg-white p-6 rounded-lg shadow-lg w-1/5 max-w-lg mt-80">
+
+            </div>
+        </div>
         <div class="item1 items-baseline-last flex justify-center">
-          <div></div>
+          <div id="place1">
+                
+          </div>
           <button id="itembtn1" class="px-2 py-1 bg-blue-600 text-white rounded m-1">+</button>
         </div>
         <div class="item2 items-baseline-last flex justify-center">
-          <div></div>
+          <div id="place2"></div>
           <button id="itembtn2" class="px-2 py-1 bg-blue-600 text-white rounded m-1">+</button>
         </div>
         <div class="item3 items-baseline-last flex justify-center">
-          <div></div>
+          <div id="place3"></div>
           <button id="itembtn3" class="px-2 py-1 bg-blue-600 text-white rounded m-1">+</button>
         </div>
         <div class="item4 items-baseline-last flex justify-center">
-          <div></div>
+          <div id="place4"></div>
           <button id="itembtn4" class="px-2 py-1 bg-blue-600 text-white rounded m-1">+</button>
         </div>
         <div class="item5 items-baseline-last flex justify-center">
-          <div></div>
+          <div id="place5"></div>
           <button id="itembtn5" class="px-2 py-1 bg-blue-600 text-white rounded m-1">+</button>
         </div>
         <div class="item6 items-baseline-last flex justify-center">
-          <div></div>
+          <div id="place6"></div>
           <button id="itembtn6" class="px-2 py-1 bg-blue-600 text-white rounded m-1">+</button>
         </div>
       </div>

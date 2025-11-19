@@ -268,14 +268,29 @@
   .h-8 {
     height: calc(var(--spacing) * 8);
   }
+  .h-9 {
+    height: calc(var(--spacing) * 9);
+  }
+  .h-9\/12 {
+    height: calc(9/12 * 100%);
+  }
   .h-10 {
     height: calc(var(--spacing) * 10);
+  }
+  .h-10\/12 {
+    height: calc(10/12 * 100%);
   }
   .h-11 {
     height: calc(var(--spacing) * 11);
   }
   .h-11\/12 {
     height: calc(11/12 * 100%);
+  }
+  .h-16 {
+    height: calc(var(--spacing) * 16);
+  }
+  .h-18 {
+    height: calc(var(--spacing) * 18);
   }
   .h-20 {
     height: calc(var(--spacing) * 20);
@@ -289,6 +304,15 @@
   .h-screen {
     height: 100vh;
   }
+  .w-1 {
+    width: calc(var(--spacing) * 1);
+  }
+  .w-1\/2 {
+    width: calc(1/2 * 100%);
+  }
+  .w-1\/5 {
+    width: calc(1/5 * 100%);
+  }
   .w-7 {
     width: calc(var(--spacing) * 7);
   }
@@ -297,6 +321,9 @@
   }
   .w-20 {
     width: calc(var(--spacing) * 20);
+  }
+  .w-50 {
+    width: calc(var(--spacing) * 50);
   }
   .w-full {
     width: 100%;
@@ -398,6 +425,9 @@
       margin-block-start: calc(calc(var(--spacing) * 4) * var(--tw-space-y-reverse));
       margin-block-end: calc(calc(var(--spacing) * 4) * calc(1 - var(--tw-space-y-reverse)));
     }
+  }
+  .overflow-scroll {
+    overflow: scroll;
   }
   .overflow-y-auto {
     overflow-y: auto;
