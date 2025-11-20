@@ -12,6 +12,13 @@ const place5 = document.getElementById("place5")
 const place6 = document.getElementById("place6")
 const see = document.getElementById("see")
 const see1 = document.getElementById("see1")
+const real = document.getElementById("real")
+const item1 = document.getElementById("item1")
+const item2 = document.getElementById("item2")
+const item3 = document.getElementById("item3")
+const item4 = document.getElementById("item4")
+const item5 = document.getElementById("item5")
+const item6 = document.getElementById("item6")
 
 
 ///buttons
@@ -28,6 +35,8 @@ const itembtn3 = document.getElementById("itembtn3")
 const itembtn4 = document.getElementById("itembtn4")
 const itembtn5 = document.getElementById("itembtn5")
 const itembtn6 = document.getElementById("itembtn6")
+const closeroombtn = document.getElementById("closeroombtn")
+const removebtn = document.getElementById("removebtn")
 
 
 ///input
@@ -49,6 +58,12 @@ const img = document.getElementById("img")
 let dataindex = 0;
 let expindex = 0;
 let firstclick = 0;
+let Room1 = 0
+let Room2 = 0
+let Room3 = 0
+let Room4 = 0
+let Room5 = 0
+let Room6 = 0
 
 const Experiences ={
     Company : [],
@@ -83,7 +98,10 @@ btn.addEventListener('click', (e) =>{
         }else{
             e.preventDefault()
         test.innerHTML += `
-        <div id="${cards.id}${firstclick}" class="mt-4">
+        <div id="${cards.id}${firstclick}" class="mt-4 relative">
+            <div class="absolute right-0 top-0">
+                <button id="removebtn${firstclick}">X</button>
+            </div>
             <div>
                 <label class="block">Company</label>
                 <input id="${Company.id}${firstclick}" type="text" class="border w-full p-2 rounded bg-white" required/>
@@ -94,7 +112,7 @@ btn.addEventListener('click', (e) =>{
                 <input id="${oldRole.id}${firstclick}" type="text" class="border w-full p-2 rounded bg-white" required/>
             </div>
             
-            <div class="flex gap-3">
+            <div id = "btn" class="flex gap-3">
                 <div class="flex-1">
                     <label>From</label>
                     <input type="date" id="${from.id}${firstclick}" class="border w-full p-2 rounded bg-white" required/>
@@ -110,9 +128,15 @@ btn.addEventListener('click', (e) =>{
         firstclick++;
 })
 
+test.addEventListener('click', (e)=>{
+    const remove = e.target.closest('button');
+    if(remove)
+        remove.parentElement.parentElement.remove()
+})
 
 closebtn.addEventListener('click', (e) =>{
     e.preventDefault()
+    initialisation()
     workers.classList.add('hidden')
 })
 
@@ -120,71 +144,27 @@ cancelExpBtn.addEventListener('click', (e) =>{
     e.preventDefault()
     Company.value = "";
     oldRole.value = "";
-    imgUrl.value = "";
-    email.value = "";
+    from.value = "";
+    to.value = "";
     moreExperiences.classList.add('hidden')
     saveExpBtn.classList.add('hidden')
     cancelExpBtn.classList.add('hidden')
-    test.remove()
+    test.innerHTML = ""
     firstclick = 0;
 })
 
 savebtn.addEventListener('click', (e) =>{
     e.preventDefault()
-    data.name[dataindex] = full_name.value
-    data.Role[dataindex] = role.value
-    data.Photo[dataindex] = imgUrl.value
-    data.Email[dataindex] = email.value
-    data.Phone[dataindex] = phone.value
-    img.src = imgUrl.value
-    img.classList.remove('hidden')
-    workers.classList.add('hidden')
-    dataindex++;
-    dataworker.innerHTML += `
-    <div class="border-2 border-black rounded-2xl mt-4">
-                <div class="flex justify-around ">
-                    <img  id="img${dataindex}" src="${imgUrl.value}" class="mt-3 flex justify-center w-7 h-7 object-cover rounded-4xl"/>
-                    <div class="m-4">
-                        <h4 class="text-xs font-medium ">${full_name.value}</h4>
-                        <p class="text-xs mt-2 font-medium">${role.value}</p>
-                    </div>
-                </div>
-                <div class="flex justify-around">
-                    <button id = "removebtn${dataindex}" class=" px-2 py-1 bg-red-500 text-white rounded-lg text-xs mb-2">remove</button>
-                    <button id = "editbtn${dataindex}" class="px-2 py-1 border bg-white text-yellow-500 rounded-lg text-xs border-amber-500 mb-2">Edit</button>
-                </div>
-            </div>
-        `
-    full_name.value = ""
-    role.value = ""
-    imgUrl.value = ""
-    email.value = ""
-    phone.value = ""
-    Company.value = "";
-    oldRole.value = "";
-    imgUrl.value = "";
-    moreExperiences.classList.add('hidden')
-    saveExpBtn.classList.add('hidden')
-    cancelExpBtn.classList.add('hidden')
-    test.remove()
-    firstclick = 0;
+    render();
 })
 
 cancelbtn.addEventListener('click', (e) => {
     e.preventDefault()
     workers.classList.add('hidden')
-    full_name.value = ""
-    role.value = ""
-    imgUrl.value = ""
-    email.value = ""
-    phone.value = ""
-    Company.value = "";
-    oldRole.value = "";
-    imgUrl.value = "";
+    initialisation()
     moreExperiences.classList.add('hidden')
     saveExpBtn.classList.add('hidden')
     cancelExpBtn.classList.add('hidden')
-    test.remove()
     firstclick = 0;
 })
 
@@ -216,35 +196,194 @@ saveExpBtn.addEventListener('click', (e) =>{
     }
 })
 
+
 itembtn1.addEventListener('click',(e) =>{
     e.preventDefault()
-    const clone = dataworker.cloneNode(true)
-    see1.appendChild(clone);
-    see.classList.remove('hidden')
-    see1.addEventListener('click', (e) => {
-    const clicked = e.target.closest('div');
-    if(clicked){
-        console.log("work")
-        e.preventDefault();
-        see.classList.remove('hidden')
-        if(clicked.parentElement.parentElement.id != "ever"){
-            place1.innerHTML += `<div class="border-2 border-black rounded-2xl mt-4">
+    workersAdd(place1 , Room1 , 7)
+})
+itembtn2.addEventListener('click',(e) =>{
+    e.preventDefault()
+    workersAdd(place2 , Room2 , 5)
+})
+itembtn3.addEventListener('click',(e) =>{
+    e.preventDefault()
+    workersAdd(place3 , Room3 , 2)
+})
+itembtn4.addEventListener('click',(e) =>{
+    e.preventDefault()
+    workersAdd(place4 , Room4, 4)
+})
+itembtn5.addEventListener('click',(e) =>{
+    e.preventDefault()
+    workersAdd(place5 , Room5, 4)
+})
+itembtn6.addEventListener('click',(e) =>{
+    e.preventDefault()
+    workersAdd(place6 , Room6, 2)
+})
+
+
+// real.addEventListener('click', (e) => {
+// const clicked = e.target.closest('div');
+// if(clicked){
+    
+//     console.log("work")
+//     e.preventDefault();
+//     if(clicked.parentElement.parentElement.id != "see" && clicked.parentElement.parentElement.id != "ever" && ConferenceRoom < 5){
+//         const id = clicked.parentElement.parentElement.id.slice(-1)
+//         console.log(clicked.parentElement.parentElement.id)
+//         see.classList.add('hidden')
+//         place1.innerHTML += `<div class="border-2 border-black rounded-2xl mt-4">
+//             <div class="flex justify-around ">
+//             <img  id="see${dataindex}" src="${data.Photo[id - 1]}" class="mt-3 flex justify-center w-7 h-7 object-cover rounded-4xl"/>
+//             <div class="m-4">
+//             <h4 class="text-xs font-medium ">${data.name[id - 1]}</h4>
+//             <p class="text-xs mt-2 font-medium">${data.Role[id - 1]}</p>
+//             </div>
+//             </div>
+//             </div>
+//         `
+//         real.innerHTML = ""
+//         ConferenceRoom++;
+//         if (ConferenceRoom == 1){
+//             item1.classList.remove('bg-red-500/40')
+//         }
+//         const te = document.getElementById(clicked.parentElement.parentElement.id)
+//         // clicked.parentElement.parentElement.remove()
+//         te.classList.add('hidden')
+//     }    
+// }
+
+// })
+removebtn.addEventListener('click', (e)=>{
+    e.preventDefault()
+    Company.value = "";
+    oldRole.value = "";
+    from.value = "";
+    to.value = "";
+    moreExperiences.classList.add('hidden')
+    saveExpBtn.classList.add('hidden')
+    cancelExpBtn.classList.add('hidden')
+})
+
+
+closeroombtn.addEventListener('click', (e) =>{
+    e.preventDefault()
+    console.log("add")
+    workersAdd(0,0,0)
+    real.innerHTML = ""
+    see.classList.add('hidden')
+})
+
+
+/// func
+
+function initialisation(){
+    full_name.value = "";
+    role.value = "";
+    imgUrl.value = "";
+    email.value = "";
+    phone.value = "";
+    Company.value = "";
+    oldRole.value = "";
+    from.value = "";
+    to.value = "";
+    test.innerHTML = "";
+}
+
+function render(){
+    data.name[dataindex] = full_name.value
+    data.Role[dataindex] = role.value
+    data.Photo[dataindex] = imgUrl.value
+    data.Email[dataindex] = email.value
+    data.Phone[dataindex] = phone.value
+    img.src = imgUrl.value
+    img.classList.remove('hidden')
+    workers.classList.add('hidden')
+    dataindex++;
+    dataworker.innerHTML += `
+    <div id="work${dataindex}" class="border-2 border-black rounded-2xl mt-4">
                 <div class="flex justify-around ">
-                    <img  id="see${dataindex}" src="${imgUrl.value}" class="mt-3 flex justify-center w-7 h-7 object-cover rounded-4xl"/>
+                    <img  id="img${dataindex}" src="${imgUrl.value}" class="mt-3 flex justify-center w-7 h-7 object-cover rounded-4xl"/>
                     <div class="m-4">
                         <h4 class="text-xs font-medium ">${full_name.value}</h4>
                         <p class="text-xs mt-2 font-medium">${role.value}</p>
                     </div>
                 </div>
+                <div id = "buttons" class="flex justify-around">
+                    <button id = "removebtn${dataindex}" class=" px-2 py-1 bg-red-500 text-white rounded-lg text-xs mb-2">remove</button>
+                    <button id = "editbtn${dataindex}" class="px-2 py-1 border bg-white text-yellow-500 rounded-lg text-xs border-amber-500 mb-2">Edit</button>
+                </div>
             </div>
         `
-            see.classList.add('hidden')
-            const id = clicked.parentElement.id;
-            const remove =  document.getElementById(id)
-            remove.remove()
-        }
-        // clicked.parentElement.parentElement.remove()
-        
+    initialisation();
+    moreExperiences.classList.add('hidden')
+    saveExpBtn.classList.add('hidden')
+    cancelExpBtn.classList.add('hidden')
+    firstclick = 0;
+}
+
+
+function bgcolor(counter , item){
+        console.log(counter)
+    if(counter == 1 && (item !== "item1" || item !== "item5"))
+    {
+        console.log("remove")
+        document.getElementById(item).classList.remove('bg-red-500/40')
     }
-})
-})
+    if(counter == 0 && (item !== "item1" || item !== "item5"))
+    {
+        console.log("add")
+        document.getElementById(item).classList.add('bg-red-500/40')
+    }
+}
+
+function workersAdd(place,counter,limit){
+
+    cloner()
+    
+    real.addEventListener('click', (e) => {
+        const clicked = e.target.closest('div');
+        if(clicked){
+            
+            if(place == 0 && limit == 0 && counter == 0)
+            {
+                const te = document.getElementById(clicked.parentElement.parentElement.id)
+                te.remove()
+                place = ""
+                return false;
+            }
+        console.log("work")
+        e.preventDefault();
+        if(clicked.parentElement.parentElement.id != "see" && clicked.parentElement.parentElement.id != "ever" && counter < limit){
+            const id = clicked.parentElement.parentElement.id.slice(-1)
+            console.log(clicked.parentElement.parentElement.id)
+            see.classList.add('hidden')
+            place.innerHTML += `<div class="border-2 border-black rounded-2xl mt-4">
+            <div class="flex justify-around ">
+            <img  id="see${dataindex}" src="${data.Photo[id - 1]}" class="mt-3 flex justify-center w-7 h-7 object-cover rounded-4xl"/>
+            <div class="m-4">
+            <h4 class="text-xs font-medium ">${data.name[id - 1]}</h4>
+            <p class="text-xs mt-2 font-medium">${data.Role[id - 1]}</p>
+            </div>
+            </div>
+            </div>
+            `
+            real.innerHTML = ""
+            counter++;
+            const item = "item" + place.id.slice(-1)
+            bgcolor(counter, item)
+            const te = document.getElementById(clicked.parentElement.parentElement.id)
+            te.remove()
+        }
+        place = ""
+    }
+
+    })
+}
+
+function cloner(){
+    const clone = dataworker.cloneNode(true)
+    real.appendChild(clone);
+    see.classList.remove('hidden')
+}
