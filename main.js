@@ -223,38 +223,7 @@ itembtn6.addEventListener('click',(e) =>{
 })
 
 
-// real.addEventListener('click', (e) => {
-// const clicked = e.target.closest('div');
-// if(clicked){
-    
-//     console.log("work")
-//     e.preventDefault();
-//     if(clicked.parentElement.parentElement.id != "see" && clicked.parentElement.parentElement.id != "ever" && ConferenceRoom < 5){
-//         const id = clicked.parentElement.parentElement.id.slice(-1)
-//         console.log(clicked.parentElement.parentElement.id)
-//         see.classList.add('hidden')
-//         place1.innerHTML += `<div class="border-2 border-black rounded-2xl mt-4">
-//             <div class="flex justify-around ">
-//             <img  id="see${dataindex}" src="${data.Photo[id - 1]}" class="mt-3 flex justify-center w-7 h-7 object-cover rounded-4xl"/>
-//             <div class="m-4">
-//             <h4 class="text-xs font-medium ">${data.name[id - 1]}</h4>
-//             <p class="text-xs mt-2 font-medium">${data.Role[id - 1]}</p>
-//             </div>
-//             </div>
-//             </div>
-//         `
-//         real.innerHTML = ""
-//         ConferenceRoom++;
-//         if (ConferenceRoom == 1){
-//             item1.classList.remove('bg-red-500/40')
-//         }
-//         const te = document.getElementById(clicked.parentElement.parentElement.id)
-//         // clicked.parentElement.parentElement.remove()
-//         te.classList.add('hidden')
-//     }    
-// }
 
-// })
 removebtn.addEventListener('click', (e)=>{
     e.preventDefault()
     Company.value = "";
@@ -310,7 +279,7 @@ function render(){
                         <p class="text-xs mt-2 font-medium">${role.value}</p>
                     </div>
                 </div>
-                <div id = "buttons" class="flex justify-around">
+                <div id = "buttons${dataindex}" class="flex justify-around">
                     <button id = "removebtn${dataindex}" class=" px-2 py-1 bg-red-500 text-white rounded-lg text-xs mb-2">remove</button>
                     <button id = "editbtn${dataindex}" class="px-2 py-1 border bg-white text-yellow-500 rounded-lg text-xs border-amber-500 mb-2">Edit</button>
                 </div>
@@ -355,7 +324,7 @@ function workersAdd(place,counter,limit){
             }
         console.log("work")
         e.preventDefault();
-        if(clicked.parentElement.parentElement.id != "see" && clicked.parentElement.parentElement.id != "ever" && counter < limit){
+        if(clicked.parentElement.parentElement.id != "see" && clicked.parentElement.parentElement.id != "ever" && clicked.parentElement.parentElement.id != "dataworker"&& counter < limit){
             const id = clicked.parentElement.parentElement.id.slice(-1)
             console.log(clicked.parentElement.parentElement.id)
             see.classList.add('hidden')
