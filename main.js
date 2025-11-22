@@ -300,6 +300,22 @@ function bgcolor(counter , item){
         console.log("remove")
         document.getElementById(item).classList.remove('bg-red-500/40')
     }
+    if(counter > 0){
+        const spaceInRoom = "title" + item
+        console.log(spaceInRoom)
+        if(spaceInRoom == "titleitem1")
+        document.getElementById(spaceInRoom).textContent = `conference Room (${counter}/7)`
+        else if(spaceInRoom == "titleitem2")
+        document.getElementById(spaceInRoom).textContent = `Servers Room (${counter}/5)`
+        else if(spaceInRoom == "titleitem3")
+        document.getElementById(spaceInRoom).textContent = `Security Room (${counter}/2)`
+        else if(spaceInRoom == "titleitem4")
+        document.getElementById(spaceInRoom).textContent = `Reception (${counter}/4)`
+        else if(spaceInRoom == "titleitem5")
+        document.getElementById(spaceInRoom).textContent = `Staff Room (${counter}/4)`
+        else
+        document.getElementById(spaceInRoom).textContent = `Vault (${counter}/2)`
+    }
     if(counter == 0 && (item !== "item1" || item !== "item5"))
     {
         console.log("add")
