@@ -155,7 +155,8 @@ cancelExpBtn.addEventListener('click', (e) =>{
 
 savebtn.addEventListener('click', (e) =>{
     e.preventDefault()
-    render();
+    if(regexfunction())
+        render();
 })
 
 cancelbtn.addEventListener('click', (e) => {
@@ -196,31 +197,72 @@ saveExpBtn.addEventListener('click', (e) =>{
     }
 })
 
-
 itembtn1.addEventListener('click',(e) =>{
     e.preventDefault()
-    workersAdd(place1 , Room1 , 7)
+    
+    if(Room1 < 7){
+        Room1++;
+    }else{
+        alert("Sorry, this room is already full. Please choose another one.")
+    }
 })
+
 itembtn2.addEventListener('click',(e) =>{
     e.preventDefault()
-    workersAdd(place2 , Room2 , 5)
+    workersAdd(place1 , Room1 , 7)
+    for(let i = 0 ; i < data.Role.length; i++){
+        if(!document.getElementById(`worker${i}`)) return;
+        if(data.Role[i] !== "It Guy" && data.Role[i] !== "Manager")
+            document.getElementById(`worker${i}`).classList.add("hidden")
+    }
+    if(Room2 < 5){
+        workersAdd(place2 , Room2 , 5)
+        Room2++;
+    }else{
+        alert("Sorry, this room is already full. Please choose another one.")
+    }
 })
+
 itembtn3.addEventListener('click',(e) =>{
     e.preventDefault()
-    workersAdd(place3 , Room3 , 2)
+    if(Room3 < 2){
+        workersAdd(place3 , Room3 , 2)
+        Room3++;
+    }else{
+        alert("Sorry, this room is already full. Please choose another one.")
+    }
 })
+
 itembtn4.addEventListener('click',(e) =>{
     e.preventDefault()
-    workersAdd(place4 , Room4, 4)
+    if(Room4 < 4){
+        workersAdd(place4 , Room4, 4)
+        Room4++;
+    }else{
+        alert("Sorry, this room is already full. Please choose another one.")
+    }
 })
+
 itembtn5.addEventListener('click',(e) =>{
     e.preventDefault()
-    workersAdd(place5 , Room5, 4)
+    if(Room5 < 4){
+        workersAdd(place5 , Room5, 4)
+        Room5++;
+    }else{
+        alert("Sorry, this room is already full. Please choose another one.")
+    }
 })
+
 itembtn6.addEventListener('click',(e) =>{
     e.preventDefault()
-    workersAdd(place6 , Room6, 2)
+    if(Room6 < 2){
+        workersAdd(place6 , Room6, 2)
+        Room6++;
+    }else{
+        alert("Sorry, this room is already full. Please choose another one.")
+    }
 })
+
 
 
 
@@ -285,6 +327,17 @@ function render(){
                 </div>
             </div>
         `
+    real.innerHTML += `
+    <div id="worker${dataindex}" class="border-2 border-black rounded-2xl mt-4">
+                <div class="flex justify-around ">
+                    <img  id="imgs${dataindex}" src="${imgUrl.value}" class="mt-3 flex justify-center w-7 h-7 object-cover rounded-4xl"/>
+                    <div class="m-4">
+                        <h4 class="text-xs font-medium ">${full_name.value}</h4>
+                        <p class="text-xs mt-2 font-medium">${role.value}</p>
+                    </div>
+                </div>
+            </div>
+        `
     initialisation();
     moreExperiences.classList.add('hidden')
     saveExpBtn.classList.add('hidden')
@@ -301,6 +354,7 @@ function bgcolor(counter , item){
         document.getElementById(item).classList.remove('bg-red-500/40')
     }
     if(counter > 0){
+        console.log(counter)
         const spaceInRoom = "title" + item
         console.log(spaceInRoom)
         if(spaceInRoom == "titleitem1")
@@ -325,7 +379,7 @@ function bgcolor(counter , item){
 
 function workersAdd(place,counter,limit){
 
-    cloner()
+    see.classList.remove('hidden')
     
     real.addEventListener('click', (e) => {
         const clicked = e.target.closest('div');
@@ -344,22 +398,26 @@ function workersAdd(place,counter,limit){
             const id = clicked.parentElement.parentElement.id.slice(-1)
             console.log(clicked.parentElement.parentElement.id)
             see.classList.add('hidden')
-            place.innerHTML += `<div class="border-2 border-black rounded-2xl mt-4">
-            <div class="flex justify-around ">
-            <img  id="see${dataindex}" src="${data.Photo[id - 1]}" class="mt-3 flex justify-center w-7 h-7 object-cover rounded-4xl"/>
-            <div class="m-4">
-            <h4 class="text-xs font-medium ">${data.name[id - 1]}</h4>
-            <p class="text-xs mt-2 font-medium">${data.Role[id - 1]}</p>
-            </div>
-            </div>
+            place.innerHTML += `
+            <div class="border-2 border-black rounded-2xl mt-4  relative">
+                <div class="flex justify-around ">
+                    <img  id="see${dataindex}" src="${data.Photo[id - 1]}" class="mt-3 flex justify-center w-7 h-7 object-cover rounded-4xl"/>
+                    <div class="m-4">
+                        <h4 class="text-xs font-medium ">${data.name[id - 1]}</h4>
+                        <p class="text-xs mt-2 font-medium">${data.Role[id - 1]}</p>
+                    </div>
+                </div>
+                <div id="wor${dataindex}">
+                    <button class="absolute top-0 right-2">x</button>
+                </div>
             </div>
             `
-            real.innerHTML = ""
-            counter++;
+            document.getElementById(clicked.parentElement.parentElement.id).classList.add("hidden")
+            document.getElementById(`work${id}`).classList.add("hidden")
+            counter += 1;
             const item = "item" + place.id.slice(-1)
             bgcolor(counter, item)
-            const te = document.getElementById(clicked.parentElement.parentElement.id)
-            te.remove()
+        
         }
         place = ""
     }
@@ -367,8 +425,32 @@ function workersAdd(place,counter,limit){
     })
 }
 
-function cloner(){
-    const clone = dataworker.cloneNode(true)
-    real.appendChild(clone);
-    see.classList.remove('hidden')
+
+function regexfunction() {
+    const nameval = /^[a-zA-Z\s]{2,}$/;
+    const phoneval = /^(06|07)[0-9]{8}$/;
+    const emailval = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+    if (!nameval.test(full_name.value)) {
+        alert("Invalid name. Enter at least 2 letters.");
+        return false;
+    }
+
+    if (!phoneval.test(phone.value)) {
+        alert("Invalid phone. Must be Moroccan (starts with 06 or 07 and has 10 digits).");
+        return false;
+    }
+
+    if (!emailval.test(email.value)) {
+        alert("Invalid email format.");
+        return false;
+    }
+
+    return true; // All good
 }
+
+// function cloner(){
+//     const clone = dataworker.cloneNode(true)
+//     real.appendChild(clone);
+//     see.classList.remove('hidden')
+// }
