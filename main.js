@@ -19,6 +19,7 @@ const item3 = document.getElementById("item3")
 const item4 = document.getElementById("item4")
 const item5 = document.getElementById("item5")
 const item6 = document.getElementById("item6")
+const showdata = document.getElementById("showdata")
 
 
 ///buttons
@@ -209,12 +210,7 @@ itembtn1.addEventListener('click',(e) =>{
 
 itembtn2.addEventListener('click',(e) =>{
     e.preventDefault()
-    workersAdd(place1 , Room1 , 7)
-    for(let i = 0 ; i < data.Role.length; i++){
-        if(!document.getElementById(`worker${i}`)) return;
-        if(data.Role[i] !== "It Guy" && data.Role[i] !== "Manager")
-            document.getElementById(`worker${i}`).classList.add("hidden")
-    }
+    // workersAdd(place1 , Room1 , 7)
     if(Room2 < 5){
         workersAdd(place2 , Room2 , 5)
         Room2++;
@@ -286,6 +282,19 @@ closeroombtn.addEventListener('click', (e) =>{
     see.classList.add('hidden')
 })
 
+document.getElementById("dataworker").addEventListener('click',(e)=>{
+        const clicked = e.target.closest("button").id;
+        const index = Number(clicked.slice(-1));
+        showWorkerData(index - 1)
+        const closeshow = document.getElementById("closeshow")
+        closeshow.addEventListener('click', (e)=>{
+            e.preventDefault()
+            showdata.innerHTML = ""
+            showdata.classList.add("hidden")
+        })
+    })
+
+
 
 /// func
 
@@ -323,7 +332,7 @@ function render(){
                 </div>
                 <div id = "buttons${dataindex}" class="flex justify-around">
                     <button id = "removebtn${dataindex}" class=" px-2 py-1 bg-red-500 text-white rounded-lg text-xs mb-2">remove</button>
-                    <button id = "editbtn${dataindex}" class="px-2 py-1 border bg-white text-yellow-500 rounded-lg text-xs border-amber-500 mb-2">Edit</button>
+                    <button id = "showbtn${dataindex}" class="data px-2 py-1 border bg-white text-yellow-500 rounded-lg text-xs border-amber-500 mb-2">Show</button>
                 </div>
             </div>
         `
@@ -380,7 +389,7 @@ function bgcolor(counter , item){
 function workersAdd(place,counter,limit){
 
     see.classList.remove('hidden')
-    
+    filterworkers(place)
     real.addEventListener('click', (e) => {
         const clicked = e.target.closest('div');
         if(clicked){
@@ -424,12 +433,52 @@ function workersAdd(place,counter,limit){
 
     })
 }
+function filterworkers(room){
+    if(room == place1)
+        return;
+    if(room == place2)
+        str = "It Guy"
+    if(room == place3)
+        str = "Security"
+    if(room == place4)
+        str = "Receptionist"
+    if(room != place6){
+        for(let i = 1 ; i < data.Role.length; i++){
+            const workerId =  "worker" + i
+            const filtered = document.getElementById(workerId)
+            if(filtered){
+                console.log("filter not work")
+                return;
+            } 
+            if(data.Role[i] !== str && data.Role[i] !== "Manager"){
+                console.log("filter work")
+                filtered.classList.add("hidden")
+            }else{
+                filtered.classList.remove("hidden")
+            }
+        }
+    }else{
+        for(let i = 0 ; i < data.Role.length; i++){
+            if(filtered) return;
+            if(data.Role[i] === "Cleaning"){
+                filtered.classList.add("hidden")
+            }else{
+                filtered.classList.remove("hidden")
+            }
+        }
+    }
+}
 
 
 function regexfunction() {
     const nameval = /^[a-zA-Z\s]{2,}$/;
     const phoneval = /^(06|07)[0-9]{8}$/;
     const emailval = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    
+    if(from.value > to.value){
+        alert("Invalid date.from shold be older than to");
+        return false;
+    }
 
     if (!nameval.test(full_name.value)) {
         alert("Invalid name. Enter at least 2 letters.");
@@ -446,11 +495,65 @@ function regexfunction() {
         return false;
     }
 
-    return true; // All good
+    return true;
 }
 
-// function cloner(){
-//     const clone = dataworker.cloneNode(true)
-//     real.appendChild(clone);
-//     see.classList.remove('hidden')
-// }
+function showWorkerData(index){
+    showdata.classList.remove("hidden")
+    showdata.innerHTML = `
+    <div class="bg-white p-6 rounded-lg shadow-lg w-full max-w-lg max-h-[90vh] overflow-y-auto">
+               <div class="flex justify-between items-center border-b pb-3">
+                 <h3 class="text-lg font-semibold">${data.name[index]}</h3>
+                 <button id="closeshow" class="text-gray-600 text-xl">x</button>
+                </div>
+                
+                <div class="mt-4">
+                  
+                        <img  id="img" src="${data.Photo[index]}" class="mt-3 flex justify-center w-20 h-20 object-cover rounded-4xl"/>
+                        <div class="flex">
+                            <h4 class="m-4">Role :</h4>
+                            <p class="m-4">${data.Role[index]}</p>
+                        </div>
+                        <div class="flex">
+                            <h4 class="m-4">Email :</h4>
+                            <p class="m-4">${data.Email[index]}</p>
+                        </div>
+                        <div class="flex">
+                            <h4 class="m-4">Phone :</h4>
+                            <p class="m-4">${data.Phone[index]}</p>
+                        </div>
+                        <div id="exp" class="m-4">
+                            <h4 >Experiences :</h4>
+                            </div>
+                            </div>
+                            </div>
+            `
+    showExperiences(index)
+}
+
+function showExperiences(index){
+    if(!data.Experiences[index].Company)
+        return
+    for(let i = 0; i < data.Experiences[index].Company.length; i++)
+    document.getElementById("exp").innerHTML += `
+        <div class="m-4 ">
+          <div class="flex">
+            <h4 class="m-4">Company :</h4>
+            <p class="m-4">${data.Experiences[index].Company[i]}</p>
+          </div>
+          <div class="flex">
+            <h4 class="m-4">Role :</h4>
+            <p class="m-4">${data.Experiences[index].Role[i]}</p>
+          </div>
+          <div class="flex">
+            <h4 class="m-4">From :</h4>
+            <p class="m-4">${data.Experiences[index].From[i]}</p>
+          </div>
+          <div class="flex">
+            <h4 class="m-4">To :</h4>
+            <p class="m-4">${data.Experiences[index].To[i]}</p>
+          </div>
+        </div>
+        `
+}
+

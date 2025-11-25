@@ -19,8 +19,8 @@
           </div>
          <!-- Modal -->
          <div id="worker" class="hidden fixed inset-0 z-50 overflow-y-auto flex justify-center items-center bg-black/40">
-             <div class="bg-white p-6 rounded-lg shadow-lg w-full max-w-lg mt-80">
-                 <div class="flex justify-between items-center border-b pb-3">
+             <div class="bg-white p-6 rounded-lg shadow-lg w-full max-w-lg max-h-[90vh] overflow-y-auto">
+                 <div class="flex justify-between items-center border-b pb-3 ">
                      <h3 class="text-lg font-semibold">Add Worker</h3>
                      <button id="closebtn" class="text-gray-600 text-xl">x</button>
                     </div>
@@ -38,7 +38,7 @@
                                 <option value="It Guy">It Guy</option>
                                 <option value="Security">Security</option>
                                 <option value="Cleaning">Cleaning</option>
-                                <option value="Cleaning">Manager</option>
+                                <option value="Manager">Manager</option>
                                 <option value="Other">Other</option>
                             </select>
                         </div>
@@ -177,7 +177,9 @@
         </div>
       </div>
     </section>
+    <div id="showdata" class="hidden fixed inset-0 z-50 overflow-y-auto flex justify-center items-center bg-black/40">
 
+    </div>
     <script src="main.js"></script>
   </body>
 </html>
