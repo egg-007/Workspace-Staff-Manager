@@ -202,6 +202,7 @@ itembtn1.addEventListener('click',(e) =>{
     e.preventDefault()
     
     if(Room1 < 7){
+        workersAdd(place1 , Room1 , 7)
         Room1++;
     }else{
         alert("Sorry, this room is already full. Please choose another one.")
@@ -210,7 +211,7 @@ itembtn1.addEventListener('click',(e) =>{
 
 itembtn2.addEventListener('click',(e) =>{
     e.preventDefault()
-    // workersAdd(place1 , Room1 , 7)
+    
     if(Room2 < 5){
         workersAdd(place2 , Room2 , 5)
         Room2++;
@@ -276,7 +277,7 @@ removebtn.addEventListener('click', (e)=>{
 
 closeroombtn.addEventListener('click', (e) =>{
     e.preventDefault()
-    console.log("add")
+    console.log("add11")
     workersAdd(0,0,0)
     real.innerHTML = ""
     see.classList.add('hidden')
@@ -285,13 +286,19 @@ closeroombtn.addEventListener('click', (e) =>{
 document.getElementById("dataworker").addEventListener('click',(e)=>{
         const clicked = e.target.closest("button").id;
         const index = Number(clicked.slice(-1));
-        showWorkerData(index - 1)
-        const closeshow = document.getElementById("closeshow")
-        closeshow.addEventListener('click', (e)=>{
-            e.preventDefault()
-            showdata.innerHTML = ""
-            showdata.classList.add("hidden")
-        })
+        if(clicked == "showbtn" + clicked.slice(-1)){
+            showWorkerData(index - 1)
+            const closeshow = document.getElementById("closeshow")
+            closeshow.addEventListener('click', (e)=>{
+                e.preventDefault()
+                showdata.innerHTML = ""
+                showdata.classList.add("hidden")
+            })
+        }else{
+            // const btnRemove = "work" + index
+            document.getElementById("work" + index).remove()
+            document.getElementById("worker" + index).remove()
+        }
     })
 
 
@@ -331,7 +338,7 @@ function render(){
                     </div>
                 </div>
                 <div id = "buttons${dataindex}" class="flex justify-around">
-                    <button id = "removebtn${dataindex}" class=" px-2 py-1 bg-red-500 text-white rounded-lg text-xs mb-2">remove</button>
+                    <button id = "work${dataindex}" class=" px-2 py-1 bg-red-500 text-white rounded-lg text-xs mb-2">remove</button>
                     <button id = "showbtn${dataindex}" class="data px-2 py-1 border bg-white text-yellow-500 rounded-lg text-xs border-amber-500 mb-2">Show</button>
                 </div>
             </div>
@@ -392,15 +399,15 @@ function workersAdd(place,counter,limit){
     filterworkers(place)
     real.addEventListener('click', (e) => {
         const clicked = e.target.closest('div');
+        if(place == 0 && limit == 0 && counter == 0)
+        {
+            const te = document.getElementById(clicked.parentElement.parentElement.id)
+            place = ""
+            te.remove()
+            return false;
+        }
         if(clicked){
             
-            if(place == 0 && limit == 0 && counter == 0)
-            {
-                const te = document.getElementById(clicked.parentElement.parentElement.id)
-                te.remove()
-                place = ""
-                return false;
-            }
         console.log("work")
         e.preventDefault();
         if(clicked.parentElement.parentElement.id != "see" && clicked.parentElement.parentElement.id != "ever" && clicked.parentElement.parentElement.id != "dataworker"&& counter < limit){
@@ -424,6 +431,7 @@ function workersAdd(place,counter,limit){
             document.getElementById(clicked.parentElement.parentElement.id).classList.add("hidden")
             document.getElementById(`work${id}`).classList.add("hidden")
             counter += 1;
+            if(!place || !place.id) return
             const item = "item" + place.id.slice(-1)
             bgcolor(counter, item)
         
@@ -446,7 +454,7 @@ function filterworkers(room){
         for(let i = 1 ; i < data.Role.length; i++){
             const workerId =  "worker" + i
             const filtered = document.getElementById(workerId)
-            if(filtered){
+            if(!filtered){
                 console.log("filter not work")
                 return;
             } 
@@ -556,4 +564,5 @@ function showExperiences(index){
         </div>
         `
 }
+
 
