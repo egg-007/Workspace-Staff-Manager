@@ -80,6 +80,7 @@ const data = {
     Photo : [],
     Email : [],
     Phone : [],
+    inroom : [],
     Experiences : [Experiences]
 };
 
@@ -295,7 +296,6 @@ document.getElementById("dataworker").addEventListener('click',(e)=>{
                 showdata.classList.add("hidden")
             })
         }else{
-            // const btnRemove = "work" + index
             document.getElementById("work" + index).remove()
             document.getElementById("worker" + index).remove()
         }
@@ -343,6 +343,7 @@ function render(){
                 </div>
             </div>
         `
+        data.inroom[dataindex] = 0;
     real.innerHTML += `
     <div id="worker${dataindex}" class="border-2 border-black rounded-2xl mt-4">
                 <div class="flex justify-around ">
@@ -369,7 +370,7 @@ function bgcolor(counter , item){
         console.log("remove")
         document.getElementById(item).classList.remove('bg-red-500/40')
     }
-    if(counter > 0){
+    if(counter > -1){
         console.log(counter)
         const spaceInRoom = "title" + item
         console.log(spaceInRoom)
@@ -415,7 +416,7 @@ function workersAdd(place,counter,limit){
             console.log(clicked.parentElement.parentElement.id)
             see.classList.add('hidden')
             place.innerHTML += `
-            <div class="border-2 border-black rounded-2xl mt-4  relative">
+            <div id="workerinroom" class="border-2 border-black rounded-2xl mt-4  relative">
                 <div class="flex justify-around ">
                     <img  id="see${dataindex}" src="${data.Photo[id - 1]}" class="mt-3 flex justify-center w-7 h-7 object-cover rounded-4xl"/>
                     <div class="m-4">
@@ -424,16 +425,31 @@ function workersAdd(place,counter,limit){
                     </div>
                 </div>
                 <div id="wor${dataindex}">
-                    <button class="absolute top-0 right-2">x</button>
+                    <button id="wo${dataindex}" class="absolute top-0 right-2">x</button>
                 </div>
             </div>
             `
+            data.inroom[id - 1] = 1;
             document.getElementById(clicked.parentElement.parentElement.id).classList.add("hidden")
             document.getElementById(`work${id}`).classList.add("hidden")
             counter += 1;
             if(!place || !place.id) return
             const item = "item" + place.id.slice(-1)
             bgcolor(counter, item)
+            const removeBtn = document.getElementById(`wo${dataindex}`);
+                removeBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+
+                    const workerElement = e.target.closest('#workerinroom');
+                    workerElement.remove();
+                    
+                    data.inroom[id - 1] = 0;
+                    counter -= 1;
+                    
+                    document.getElementById(clicked.parentElement.parentElement.id).classList.remove("hidden")
+                    document.getElementById(`work${id}`).classList.remove("hidden")
+                    bgcolor(counter, item)
+                });
         
         }
         place = ""
@@ -441,42 +457,76 @@ function workersAdd(place,counter,limit){
 
     })
 }
+
+
 function filterworkers(room){
-    if(room == place1)
+    let str = "";
+    
+    for(let i = 1; i <= data.Role.length; i++){
+        const workerId = "worker" + i;
+        const filtered = document.getElementById(workerId);
+        if(filtered && data.inroom[i - 1] != 1){
+            filtered.classList.remove("hidden");
+        }
+    }
+    
+    const allRooms = [place1, place2, place3, place4, place5, place6];
+    allRooms.forEach(roomElement => {
+        if(roomElement){
+            const workersInRoom = roomElement.querySelectorAll('[id^="workerinroom"]');
+            workersInRoom.forEach(workerDiv => {
+                const workerIdMatch = workerDiv.id.match(/workerinroom(\d+)_/);
+                if(workerIdMatch){
+                    const workerId = workerIdMatch[1];
+                    const workerInList = document.getElementById(`worker${workerId}`);
+                    if(workerInList){
+                        workerInList.classList.add("hidden");
+                    }
+                }
+            });
+        }
+    });
+    
+    if(room == place1){
+        return; 
+    }
+    if(room == place2){
+        str = "It Guy";
+    }
+    if(room == place3){
+        str = "Security";
+    }
+    if(room == place4){
+        str = "Receptionist";
+    }
+    if(room == place5){
         return;
-    if(room == place2)
-        str = "It Guy"
-    if(room == place3)
-        str = "Security"
-    if(room == place4)
-        str = "Receptionist"
-    if(room != place6){
-        for(let i = 1 ; i < data.Role.length; i++){
-            const workerId =  "worker" + i
-            const filtered = document.getElementById(workerId)
-            if(!filtered){
-                console.log("filter not work")
-                return;
-            } 
-            if(data.Role[i] !== str && data.Role[i] !== "Manager"){
-                console.log("filter work")
-                filtered.classList.add("hidden")
-            }else{
-                filtered.classList.remove("hidden")
+    }
+    if(room == place6){
+        for(let i = 1; i <= data.Role.length; i++){
+            const workerId = "worker" + i;
+            const filtered = document.getElementById(workerId);
+            if(filtered){
+                if(data.Role[i - 1] === "Cleaning"){
+                    filtered.classList.add("hidden");
+                }
             }
         }
-    }else{
-        for(let i = 0 ; i < data.Role.length; i++){
-            if(filtered) return;
-            if(data.Role[i] === "Cleaning"){
-                filtered.classList.add("hidden")
-            }else{
-                filtered.classList.remove("hidden")
+        return;
+    }
+
+    if(str !== ""){
+        for(let i = 1; i <= data.Role.length; i++){
+            const workerId = "worker" + i;
+            const filtered = document.getElementById(workerId);
+            if(filtered){
+                if(data.Role[i - 1] !== str && data.Role[i - 1] !== "Manager"){
+                    filtered.classList.add("hidden");
+                }
             }
         }
     }
 }
-
 
 function regexfunction() {
     const nameval = /^[a-zA-Z\s]{2,}$/;
